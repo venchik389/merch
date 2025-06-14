@@ -12,6 +12,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
+    sizes = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.name

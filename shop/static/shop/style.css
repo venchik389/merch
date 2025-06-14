@@ -1,60 +1,217 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 20px;
+/* ==================================================
+   Базовые стили и структура
+   ================================================== */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0f0f0f;
+    color: #ff3c00;
 }
 
-h1 {
-    color: #333;
+.wrapper {
+    flex: 1;
+    padding: 20px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background: white;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-img {
-    max-width: 150px;
-    height: auto;
-    display: block;
-    margin-top: 10px;
-}
-
+/* ==================================================
+   Ссылки
+   ================================================== */
 a {
+    color: #ffd700;
     text-decoration: none;
-    
-    color: #000000;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    display:inline-block;
+    transition: color 0.3s;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #ff0000;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
+/* ==================================================
+   Логотип и заголовки
+   ================================================== */
+.logo {
+    display: block;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffd700;
+}
+
+h1, h3 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #fff;
+}
+
+h1 {
+    font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
+h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
-th {
-    background-color: #f2f2f2;
+/* ==================================================
+   Кнопка корзины
+   ================================================== */
+.cart-link {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.cart-link a {
+    display: inline-block;
+    background-color: #ff3c00;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cart-link a:hover {
+    background-color: #cc0000;
+}
+
+/* ==================================================
+   Список товаров
+   ================================================== */
+.horizontal-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+/* --------------------------------------------------
+   Карточка товара
+   -------------------------------------------------- */
+.product-card {
+    position: relative;
+    width: 250px;
+    padding: 20px;
+    background: linear-gradient(145deg, #1e1e1e, #000);
+    border: 2px solid #ff3c00;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    color: #fff;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff0000;
+}
+
+.product-card img {
+    width: 100%;
+    border: 1px solid #ffd700;
+    border-radius: 5px;
+}
+
+/* Цена */
+.price {
+    font-size: 1.2rem;
+    color: #ffd700;
+    margin: 10px 0;
+}
+
+/* Кнопки внутри карточки */
+.toggle-info,
+.add-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-info {
+    background-color: #ff3c00;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.toggle-info:hover {
+    background-color: #b20000;
+}
+
+.add-btn {
+    display: block;      /* Чтобы кнопка занимала всю ширину */
+    width: 100%;         /* Полная ширина родителя */
+    margin-top: 10px;    /* Отступ сверху */
+    background-color: #ffd700;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-sizing: border-box; /* Чтобы padding не влиял на ширину */
+    text-align: center;  /* Чтобы текст был по центру */
+}
+
+.add-btn:hover {
+    background-color: #fff200;
+}
+
+/* Детали товара (скрывать/показывать) */
+.product-details {
+    display: none;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.product-card.open .product-details {
+    display: block;
+}
+
+/* ==================================================
+   Таблица корзины
+   ================================================== */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #1a1a1a;
+    border: 2px solid #ff3c00;
+}
+
+.cart-table th,
+.cart-table td {
+    border: 1px solid #ff3c00;
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+}
+
+.cart-table th {
+    background-color: #330000;
+    color: #ffd700;
+    text-transform: uppercase;
+}
+
+.cart-table .total-row {
+    background-color: #222;
+    font-size: 1.1rem;
+}
+
+/* ==================================================
+   Футер
+   ================================================== */
+footer {
+    background-color: #1a1a1a;
+    border-top: 2px solid #ff3c00;
+    color: #ff3c00;
+    text-align: center;
+    padding: 15px;
 }
