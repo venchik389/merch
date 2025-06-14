@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин мерча</title>
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+    <a href="{% url 'cart_detail' %}">
+        🛒 Корзина
+    </a>
+
+    <h1>Товары</h1>
+    
+    {% if products %}
+        <ul>
+        {% for product in products %}
+            <li>
+                <strong>{{ product.name }}</strong> — {{ product.price }} $
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <a href="{% url 'add_to_cart' product.id %}">Добавить в корзину</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет товаров.</p>
+    {% endif %}
+</body>
+</html>
