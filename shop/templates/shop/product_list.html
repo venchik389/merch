@@ -4,62 +4,73 @@
 <head>
     <meta charset="UTF-8" />
     <title>Магазин мерча</title>
-    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
 </head>
 <body>
-<div class="wrapper">
+    <div class="wrapper">
 
-    {% block title %}
-    <a href="{% url 'product_list' %}" class="logo">MERCH</a>
-    {% endblock %}
+        {% block title %}
+            <a href="{% url 'product_list' %}" class="logo">MERCH</a>
+        {% endblock %}
 
-    <div class="cart-link">
-        <a href="{% url 'cart_detail' %}">🛒 Перейти в корзину</a>
+        <div class="cart-link">
+            <a href="{% url 'cart_detail' %}" aria-label="Перейти в корзину">
+                <span class="cart-icon" aria-hidden="true">🛒</span>
+                <span class="cart-text">Перейти в корзину</span>
+            </a>
+        </div>
+
+        <h1>Доступные товары</h1>
+
+        <div class="filter-buttons">
+            {% for cat in categories %}
+                <a href="?category={{ cat.id }}" class="{% if cat.id == selected_category %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if products %}
+            <ul class="horizontal-list">
+                {% for product in products %}
+                    <li class="product-card">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                        <h3>{{ product.name }}</h3>
+                        <p class="price">{{ product.price }} $</p>
+
+                        <button class="toggle-info" type="button">Подробнее</button>
+
+                        <div class="product-details">
+                            <p><strong>Размеры:</strong> {{ product.sizes }}</p>
+                            <p><strong>Описание:</strong> {{ product.description }}</p>
+                            <p><strong>Отзывы:</strong> ★★★★☆</p>
+
+                            <a href="{% url 'add_to_cart' product.id %}" class="add-btn">В корзину</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет доступных товаров.</p>
+        {% endif %}
+
     </div>
 
-    <h1>Доступные товары</h1>
+    <footer>
+        <p>&copy; {{ year }} Мой сайт. Все права защищены.</p>
+    </footer>
 
-    {% if products %}
-    <ul class="horizontal-list">
-        {% for product in products %}
-        <li class="product-card">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            <h3>{{ product.name }}</h3>
-            <p class="price">{{ product.price }} $</p>
-
-            <button class="toggle-info">Подробнее</button>
-
-            <div class="product-details">
-                <p><strong>Размеры:</strong> {{ product.sizes }}</p>
-                <p><strong>Описание:</strong> {{ product.description }}</p>
-                <p><strong>Отзывы:</strong> ★★★★☆ (заглушка)</p>
-
-                <a href="{% url 'add_to_cart' product.id %}" class="add-btn">🛒 В корзину</a>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>Нет доступных товаров.</p>
-    {% endif %}
-
-</div>
-
-<footer>
-    <p>&copy; {{ year }} Мой сайт. Все права защищены.</p>
-</footer>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.toggle-info').forEach(button => {
-      button.addEventListener('click', () => {
-        const card = button.closest('.product-card');
-        card.classList.toggle('open');
-        button.textContent = card.classList.contains('open') ? 'Скрыть' : 'Подробнее';
-      });
-    });
-  });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.toggle-info').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.product-card');
+                    card.classList.toggle('open');
+                    button.textContent = card.classList.contains('open') ? 'Скрыть' : 'Подробнее';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
